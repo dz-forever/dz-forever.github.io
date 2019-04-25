@@ -1,4 +1,13 @@
-_site
-.sass-cache
-node_modules
-_drafts
+_site/*
+_theme_packages/*
+
+Thumbs.db
+.DS_Store
+
+!.gitkeep
+
+.rbenv-version
+.rvmrc
+
+*.lock
+.Rproj.user
