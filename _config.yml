@@ -4,10 +4,10 @@
 # ---------------------------------------------------------------
 
 # Site
-title: Anchoret
+title: DZ-FOREVER
 subtitle: Choose You Own Path
-description: 逢君一笑，人间无此欢喜
-author: 诗翔
+description: 精神之所在，灵魂之向往。
+author: dz-forever
 # Support language: de, en, fr-FR, id, ja, ko, pt-BR, pt, ru, zh-Hans, zh-hk, zh-tw
 language: zh-Hans
 date_format: '%Y-%m-%d'
@@ -214,8 +214,8 @@ font:
 #social:
   #LinkLabel: Link
 social:
-    GitHub: https://github.com/ShixiangWang
-    简书: http://www.jianshu.com/u/b6608e27dc74
+    GitHub: https://github.com/dz-forever
+    简书: https://github.com/dz-forever
 # Social Links Icons
 # Icon Mapping:
 #   Map a menu item to a specific FontAwesome icon name.
@@ -232,7 +232,7 @@ social_icons:
 
   
 # reward
-reward_comment: 人该是自己生活的主宰，而不是别人手里的行货
+reward_comment: 精神之所在，灵魂之向往!
 alipay: /images/reward_image/alipay-reward-image.jpg
 # Sidebar Avatar
 # in directory: /assets/images/avatar.gif
