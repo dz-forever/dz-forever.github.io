@@ -4,7 +4,7 @@ title: 看我回来路上发现了什么？
 date: 2017-08-09
 category: Photo
 photos:
-- http://upload-images.jianshu.io/upload_images/3884693-c99ecd1f4745471c.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/q/50
+- /images/avatar.jpg
 tags:
 - life
 description: 看我回来路上发现了什么
