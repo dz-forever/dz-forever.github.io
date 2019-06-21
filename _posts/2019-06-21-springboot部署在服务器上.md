@@ -20,7 +20,7 @@ entexport MAVEN_HOME=/usr/local/maven/apache-maven-3.6.1
 export JAVA_HOME=/usr/local/java/jdk1.8.0_152
 export JRE_HOME=/usr/local/java/jdk1.8.0_152/jre
 export CLASSPATH=$CLASSPATH:$JAVA_HOME/lib:$JAVA_HOME/jre/lib
-export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$MAVEN_HOME/bin:$PATH:$HOME/biner code here
+export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$MAVEN_HOME/bin:$PATH:$HOME/bin
 ```
 
 ### 2.git克隆代码
