@@ -1,40 +1,43 @@
 # Basic
-title: DZ-FOREVER
-subtitle: 个人博客
-description: 欢迎来到我的个人博客~
+title: dz-forever
+subtitle: 个人站
+description: 欢迎来到我的个人站~
 # 头像里面的标题
-avatarTitle: 个人博客
+avatarTitle: leopardpan
 # 头像里面的描述
-avatarDesc: java web
-url: "https://dz-forever.github.io/"
+avatarDesc: iOS / 机器学习
+url: "https://leopardpan.cn"
+
+# 博客是否自动生成目录，false为不生成
+enableToc: true
 
 # Comment
 comment:
+    # livere: MTAyMC81MDk5NC8yNzQ3Ng  # https://www.livere.com
     disqus: leopard
-    # gitment: xxx // 需要修改 comments.html中的client_id和client_secret
     # uyan: 2143225  # 有言id,登录有言官网申请
 
 # Social
 social:
-    weibo: 
-    github: dz-forever
+    weibo: 5366874726 
+    github: leopardpan
     # zhihu: panpanleopard
     # juejin: xxx
-    jianshu: dz-forever
+    jianshu: 2ada30d8d0f7
     # twitter: 
-    mail: 1871301001@qq.com
+    mail: leopardpan@icloud.com
 
 
 # 百度统计 
 # 使用博客模板请去掉或者更换 id 
-baidu:
-    id: xxxx  
+#baidu:
+ #   id: 8ba1c6be0953b6f9c2ba38e57f615421  
 
 # Google Analytics
 # 使用博客模板请去掉或者更换 id
-ga:
-    id: xxxx  
-    host: auto  
+#ga:
+ #   id: UA-84134159-3  
+ #   host: auto  
 
 
 # 《----------------- 上面的信息修改成你自己的 ---------------------------》
@@ -63,15 +66,12 @@ blog_button:
 # Navigation buttons in the front page.s
 nav:
     - {title: 所有文章, description: archive, url: '/archive'}   
-    - {title: 分类, description: categories, url: '/categories'}      
-    - {title: 关于我, description: about, url: '/about'}      
+    - {title: 标签, description: tags, url: '/tags'}      
+    - {title: 技术支持, description: support, url: '/support'}      
+    - {title: 关于我, description: about, url: '/about'}   
     
 
 # Pagination
 gems: [jekyll-paginate,jekyll-sitemap]
 paginate: 20
 paginate_path: "page/:num/"
-
-
-
-theme: jekyll-theme-cayman
