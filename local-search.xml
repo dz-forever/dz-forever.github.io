@@ -4,25 +4,6 @@
   
   
   <entry>
-    <title>git配置ssh</title>
-    <link href="/2023/01/09/2019-09-21-git%E9%85%8D%E7%BD%AEssh/"/>
-    <url>/2023/01/09/2019-09-21-git%E9%85%8D%E7%BD%AEssh/</url>
-    
-    <content type="html"><![CDATA[<h1 id="git配置ssh"><a href="#git配置ssh" class="headerlink" title="git配置ssh"></a><strong>git配置ssh</strong></h1><h3 id="1-配置用户名和邮箱"><a href="#1-配置用户名和邮箱" class="headerlink" title="1.配置用户名和邮箱"></a>1.配置用户名和邮箱</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;用户名&quot;</span><br>git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;邮箱&quot;</span><br></code></pre></td></tr></table></figure><h3 id="2-生成密钥"><a href="#2-生成密钥" class="headerlink" title="2.生成密钥"></a>2.生成密钥</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span><br></code></pre></td></tr></table></figure><h3 id="3-找到公钥并添加到git仓库"><a href="#3-找到公钥并添加到git仓库" class="headerlink" title="3.找到公钥并添加到git仓库"></a>3.找到公钥并添加到git仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh<br>vi id_rsa.pub<br></code></pre></td></tr></table></figure><p>将id_rsa.pub里的公钥添加到git仓库。</p>]]></content>
-    
-    
-    
-    <tags>
-      
-      <tag>git配置ssh</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title></title>
     <link href="/2023/01/08/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
     <url>/2023/01/08/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</url>
@@ -30,10 +11,20 @@
     <content type="html"><![CDATA[<h1 id="springboot项目部署在服务器上"><a href="#springboot项目部署在服务器上" class="headerlink" title="springboot项目部署在服务器上"></a><strong>springboot项目部署在服务器上</strong></h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><strong>准备工作</strong></h2><h3 id="1-在服务器上安装git-java-maven"><a href="#1-在服务器上安装git-java-maven" class="headerlink" title="1.在服务器上安装git,java,maven"></a>1.在服务器上安装git,java,maven</h3><p>安装java和maven配置的环境变量：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript">entexport <span class="hljs-variable constant_">MAVEN_HOME</span>=<span class="hljs-regexp">/usr/</span>local/maven/apache-maven-<span class="hljs-number">3.6</span><span class="hljs-number">.1</span><br><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">JAVA_HOME</span>=<span class="hljs-regexp">/usr/</span>local/java/jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0_152</span><br><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">JRE_HOME</span>=<span class="hljs-regexp">/usr/</span>local/java/jdk1<span class="hljs-number">.8</span><span class="hljs-number">.0_152</span>/jre<br><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">CLASSPATH</span>=<span class="hljs-attr">$CLASSPATH</span>:$JAVA_HOME/<span class="hljs-attr">lib</span>:$JAVA_HOME/jre/lib<br><span class="hljs-keyword">export</span> <span class="hljs-variable constant_">PATH</span>=$JAVA_HOME/<span class="hljs-attr">bin</span>:$JAVA_HOME/jre/<span class="hljs-attr">bin</span>:$MAVEN_HOME/<span class="hljs-attr">bin</span>:<span class="hljs-attr">$PATH</span>:$HOME/bin<br></code></pre></td></tr></table></figure><h3 id="2-git克隆代码"><a href="#2-git克隆代码" class="headerlink" title="2.git克隆代码"></a>2.git克隆代码</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">git clone<br></code></pre></td></tr></table></figure><p>将代码打成jar包</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">mvn clean package -<span class="hljs-title class_">Dmaven</span>.<span class="hljs-property">test</span>.<span class="hljs-property">skip</span>=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><h3 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3.构建镜像"></a>3.构建镜像</h3><p>创建一个image文件夹，创建Dockerfile文件：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable constant_">FROM</span> <span class="hljs-attr">openjdk</span>:<span class="hljs-number">8</span>-jre<br><span class="hljs-variable constant_">MAINTAINER</span> dz-forever &lt;<span class="hljs-number">1871301001</span>@qq.<span class="hljs-property">com</span>&gt;<br><br><span class="hljs-variable constant_">RUN</span> mkdir /app<br><span class="hljs-variable constant_">COPY</span> baidu-image-<span class="hljs-number">1.0</span>-<span class="hljs-variable constant_">SNAPSHOT</span>.<span class="hljs-property">jar</span> /app/app.<span class="hljs-property">jar</span><br><br><span class="hljs-variable constant_">ENTRYPOINT</span> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;/app/app.jar&quot;</span>]<br><br><span class="hljs-variable constant_">EXPOSE</span> <span class="hljs-number">6002</span><br><br></code></pre></td></tr></table></figure><p>将target下生成的jar包复制到image文件夹下，然后执行：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">docker build -t baiduimage .     <br>注意最后有一个点<br></code></pre></td></tr></table></figure><h3 id="4-使用docker-compose-yml文件运行镜像"><a href="#4-使用docker-compose-yml文件运行镜像" class="headerlink" title="4.使用docker-compose.yml文件运行镜像"></a>4.使用docker-compose.yml文件运行镜像</h3><p>在image文件夹下创建docker-compose.yml文件：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-attr">version</span>: <span class="hljs-string">&#x27;3.1&#x27;</span><br><span class="hljs-attr">services</span>:<br>  baidu-<span class="hljs-attr">image</span>:<br>    <span class="hljs-attr">image</span>: baiduimage<br>    <span class="hljs-attr">container_name</span>: baidu-image<br>    <span class="hljs-attr">ports</span>:<br>      - <span class="hljs-number">6002</span>:<span class="hljs-number">6002</span><br></code></pre></td></tr></table></figure><p>运行docker-compose.yml文件：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript">docker-compose up -d 后台运行<br><br><br>查看项目启动日志：<br><br>docker -f logs   容器id<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>spring</category>
+      
+      <category>deploy</category>
+      
+    </categories>
+    
     
     <tags>
       
-      <tag>springboot项目部署在服务器上</tag>
+      <tag>springboot</tag>
+      
+      <tag>deploy</tag>
       
     </tags>
     
@@ -42,13 +33,77 @@
   
   
   <entry>
-    <title>Hello World</title>
-    <link href="/2023/01/08/hello-world/"/>
-    <url>/2023/01/08/hello-world/</url>
+    <title>cgroup的使用</title>
+    <link href="/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <url>/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="cgroup-用来限制启动进程的cpu占比"><a href="#cgroup-用来限制启动进程的cpu占比" class="headerlink" title="cgroup(用来限制启动进程的cpu占比)"></a>cgroup(用来限制启动进程的cpu占比)</h1><h2 id="cgroup安装"><a href="#cgroup安装" class="headerlink" title="cgroup安装"></a><strong>cgroup安装</strong></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">yum install libcgroup-tools.x86_64 -y<br></code></pre></td></tr></table></figure><blockquote><p>如果出现 &#x2F;var&#x2F;run&#x2F;yum.pid 已被锁定的情况，可以执行<code>rm -rf /var/run/yum.pid</code></p></blockquote><h2 id="cgroup-配置"><a href="#cgroup-配置" class="headerlink" title="cgroup 配置"></a><strong>cgroup 配置</strong></h2><ol><li><strong>创建cgroup子系统</strong></li></ol>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">mkdir /sys/fs/cgroup/cpu/hello_cpu<br></code></pre></td></tr></table></figure><ol start="2"><li><strong>配置cpu的参数来限制group的cpu占用时长</strong></li></ol>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo 100000 &gt; cpu.cfs_period_us<br></code></pre></td></tr></table></figure>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">echo 10000 &gt; cpu.cfs_quota_us<br></code></pre></td></tr></table></figure><p>   cpu.cfs_quota_us &#x2F; cpu.cfs_period_us 的值就是限制cpu的比例，这里是限制为10%的cpu</p><h2 id="cgroup使用"><a href="#cgroup使用" class="headerlink" title="cgroup使用"></a><strong>cgroup使用</strong></h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cgexec -g cpu:hello_cpu java -jar *.jar<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>linux</category>
+      
+      <category>cgroup</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>cgroup</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Linux和Windows解决端口号占用问题</title>
+    <link href="/2020/09/22/2020-09-22-Linux%E5%92%8CWindows%E8%A7%A3%E5%86%B3%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%8D%A0%E7%94%A8%E9%97%AE%E9%A2%98/"/>
+    <url>/2020/09/22/2020-09-22-Linux%E5%92%8CWindows%E8%A7%A3%E5%86%B3%E7%AB%AF%E5%8F%A3%E5%8F%B7%E5%8D%A0%E7%94%A8%E9%97%AE%E9%A2%98/</url>
+    
+    <content type="html"><![CDATA[<h1 id="1-Linux"><a href="#1-Linux" class="headerlink" title="1.Linux"></a><strong>1.Linux</strong></h1><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs perl">netstat -tunlp|<span class="hljs-keyword">grep</span> 端口号<br>得到pid<br><span class="hljs-keyword">kill</span> pid<br></code></pre></td></tr></table></figure><h1 id="2-Windows"><a href="#2-Windows" class="headerlink" title="2.Windows"></a><strong>2.Windows</strong></h1><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">netstat -ano|findstr 端口号<br>taskkill <span class="hljs-regexp">/F /</span>PID pid<br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+    <tags>
+      
+      <tag>端口号占用</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>git配置ssh</title>
+    <link href="/2019/09/21/2019-09-21-git%E9%85%8D%E7%BD%AEssh/"/>
+    <url>/2019/09/21/2019-09-21-git%E9%85%8D%E7%BD%AEssh/</url>
+    
+    <content type="html"><![CDATA[<h1 id="git配置ssh"><a href="#git配置ssh" class="headerlink" title="git配置ssh"></a><strong>git配置ssh</strong></h1><h3 id="1-配置用户名和邮箱"><a href="#1-配置用户名和邮箱" class="headerlink" title="1.配置用户名和邮箱"></a>1.配置用户名和邮箱</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.name</span> <span class="hljs-string">&quot;用户名&quot;</span><br>git config <span class="hljs-attr">--global</span> user<span class="hljs-selector-class">.email</span> <span class="hljs-string">&quot;邮箱&quot;</span><br></code></pre></td></tr></table></figure><h3 id="2-生成密钥"><a href="#2-生成密钥" class="headerlink" title="2.生成密钥"></a>2.生成密钥</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">ssh-keygen -t rsa</span><br></code></pre></td></tr></table></figure><h3 id="3-找到公钥并添加到git仓库"><a href="#3-找到公钥并添加到git仓库" class="headerlink" title="3.找到公钥并添加到git仓库"></a>3.找到公钥并添加到git仓库</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/.ssh<br>vi id_rsa.pub<br></code></pre></td></tr></table></figure><p>将id_rsa.pub里的公钥添加到git仓库。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>git</category>
+      
+      <category>ssh</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>git</tag>
+      
+      <tag>ssh</tag>
+      
+    </tags>
     
   </entry>
   
