@@ -4,35 +4,6 @@
   
   
   <entry>
-    <title></title>
-    <link href="/2023/01/08/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
-    <url>/2023/01/08/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</url>
-    
-    <content type="html"><![CDATA[<h1 id="springboot项目部署在服务器上"><a href="#springboot项目部署在服务器上" class="headerlink" title="springboot项目部署在服务器上"></a><strong>springboot项目部署在服务器上</strong></h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><strong>准备工作</strong></h2><h3 id="1-在服务器上安装git-java-maven"><a href="#1-在服务器上安装git-java-maven" class="headerlink" title="1.在服务器上安装git,java,maven"></a>1.在服务器上安装git,java,maven</h3><p>安装java和maven配置的环境变量：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">entexport MAVEN_HOME=/usr/local/maven/apache-maven-3.6.1<br><span class="hljs-built_in">export</span> JAVA_HOME=/usr/local/java/jdk1.8.0_152<br><span class="hljs-built_in">export</span> JRE_HOME=/usr/local/java/jdk1.8.0_152/jre<br><span class="hljs-built_in">export</span> CLASSPATH=<span class="hljs-variable">$CLASSPATH</span>:<span class="hljs-variable">$JAVA_HOME</span>/lib:<span class="hljs-variable">$JAVA_HOME</span>/jre/lib<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$JAVA_HOME</span>/jre/bin:<span class="hljs-variable">$MAVEN_HOME</span>/bin:<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$HOME</span>/bin<br></code></pre></td></tr></table></figure><h3 id="2-git克隆代码"><a href="#2-git克隆代码" class="headerlink" title="2.git克隆代码"></a>2.git克隆代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span><br></code></pre></td></tr></table></figure><p>将代码打成jar包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mvn clean package -Dmaven.test.skip=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><h3 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3.构建镜像"></a>3.构建镜像</h3><p>创建一个image文件夹，创建Dockerfile文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">FROM openjdk:8-jre<br>MAINTAINER dz-forever &lt;1871301001@qq.com&gt;<br><br>RUN <span class="hljs-built_in">mkdir</span> /app<br>COPY baidu-image-1.0-SNAPSHOT.jar /app/app.jar<br><br>ENTRYPOINT [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;/app/app.jar&quot;</span>]<br><br>EXPOSE 6002<br><br></code></pre></td></tr></table></figure><p>将target下生成的jar包复制到image文件夹下，然后执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t baiduimage .     <br>注意最后有一个点<br></code></pre></td></tr></table></figure><h3 id="4-使用docker-compose-yml文件运行镜像"><a href="#4-使用docker-compose-yml文件运行镜像" class="headerlink" title="4.使用docker-compose.yml文件运行镜像"></a>4.使用docker-compose.yml文件运行镜像</h3><p>在image文件夹下创建docker-compose.yml文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">version: <span class="hljs-string">&#x27;3.1&#x27;</span><br>services:<br>  baidu-image:<br>    image: baiduimage<br>    container_name: baidu-image<br>    ports:<br>      - 6002:6002<br></code></pre></td></tr></table></figure><p>运行docker-compose.yml文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose up -d 后台运行<br><br><br>查看项目启动日志：<br><br>docker -f logs   容器<span class="hljs-built_in">id</span><br></code></pre></td></tr></table></figure>]]></content>
-    
-    
-    <categories>
-      
-      <category>spring</category>
-      
-      <category>deploy</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>springboot</tag>
-      
-      <tag>deploy</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>cgroup的使用</title>
     <link href="/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <url>/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
@@ -102,6 +73,35 @@
       <tag>git</tag>
       
       <tag>ssh</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>springboot项目部署在服务器上</title>
+    <link href="/2019/06/21/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/"/>
+    <url>/2019/06/21/2019-06-21-springboot%E9%83%A8%E7%BD%B2%E5%9C%A8%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%B8%8A/</url>
+    
+    <content type="html"><![CDATA[<h1 id="springboot项目部署在服务器上"><a href="#springboot项目部署在服务器上" class="headerlink" title="springboot项目部署在服务器上"></a><strong>springboot项目部署在服务器上</strong></h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><strong>准备工作</strong></h2><h3 id="1-在服务器上安装git-java-maven"><a href="#1-在服务器上安装git-java-maven" class="headerlink" title="1.在服务器上安装git,java,maven"></a>1.在服务器上安装git,java,maven</h3><p>安装java和maven配置的环境变量：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">entexport MAVEN_HOME=/usr/local/maven/apache-maven-3.6.1<br><span class="hljs-built_in">export</span> JAVA_HOME=/usr/local/java/jdk1.8.0_152<br><span class="hljs-built_in">export</span> JRE_HOME=/usr/local/java/jdk1.8.0_152/jre<br><span class="hljs-built_in">export</span> CLASSPATH=<span class="hljs-variable">$CLASSPATH</span>:<span class="hljs-variable">$JAVA_HOME</span>/lib:<span class="hljs-variable">$JAVA_HOME</span>/jre/lib<br><span class="hljs-built_in">export</span> PATH=<span class="hljs-variable">$JAVA_HOME</span>/bin:<span class="hljs-variable">$JAVA_HOME</span>/jre/bin:<span class="hljs-variable">$MAVEN_HOME</span>/bin:<span class="hljs-variable">$PATH</span>:<span class="hljs-variable">$HOME</span>/bin<br></code></pre></td></tr></table></figure><h3 id="2-git克隆代码"><a href="#2-git克隆代码" class="headerlink" title="2.git克隆代码"></a>2.git克隆代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span><br></code></pre></td></tr></table></figure><p>将代码打成jar包</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">mvn clean package -Dmaven.test.skip=<span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure><h3 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3.构建镜像"></a>3.构建镜像</h3><p>创建一个image文件夹，创建Dockerfile文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">FROM openjdk:8-jre<br>MAINTAINER dz-forever &lt;1871301001@qq.com&gt;<br><br>RUN <span class="hljs-built_in">mkdir</span> /app<br>COPY baidu-image-1.0-SNAPSHOT.jar /app/app.jar<br><br>ENTRYPOINT [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;/app/app.jar&quot;</span>]<br><br>EXPOSE 6002<br><br></code></pre></td></tr></table></figure><p>将target下生成的jar包复制到image文件夹下，然后执行：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t baiduimage .     <br>注意最后有一个点<br></code></pre></td></tr></table></figure><h3 id="4-使用docker-compose-yml文件运行镜像"><a href="#4-使用docker-compose-yml文件运行镜像" class="headerlink" title="4.使用docker-compose.yml文件运行镜像"></a>4.使用docker-compose.yml文件运行镜像</h3><p>在image文件夹下创建docker-compose.yml文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">version: <span class="hljs-string">&#x27;3.1&#x27;</span><br>services:<br>  baidu-image:<br>    image: baiduimage<br>    container_name: baidu-image<br>    ports:<br>      - 6002:6002<br></code></pre></td></tr></table></figure><p>运行docker-compose.yml文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose up -d 后台运行<br><br><br>查看项目启动日志：<br><br>docker -f logs   容器<span class="hljs-built_in">id</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>spring</category>
+      
+      <category>deploy</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>springboot</tag>
+      
+      <tag>deploy</tag>
       
     </tags>
     
