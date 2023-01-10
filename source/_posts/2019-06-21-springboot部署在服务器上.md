@@ -1,10 +1,15 @@
 ---
 layout: post
-title: 
-data: 2019-6-21
+title: springboot项目部署在服务器上
+date: 2019-6-21
 
-tags: springboot项目部署在服务器上
-description: 将springboot项目部署在服务器上
+
+tags: 
+- springboot
+- deploy
+
+categories:
+- [springboot, deploy]
 ---
 
 # **springboot项目部署在服务器上**
@@ -15,7 +20,7 @@ description: 将springboot项目部署在服务器上
 安装java和maven配置的环境变量：
 
 
-``` javascript
+``` bash
 entexport MAVEN_HOME=/usr/local/maven/apache-maven-3.6.1
 export JAVA_HOME=/usr/local/java/jdk1.8.0_152
 export JRE_HOME=/usr/local/java/jdk1.8.0_152/jre
@@ -25,14 +30,14 @@ export PATH=$JAVA_HOME/bin:$JAVA_HOME/jre/bin:$MAVEN_HOME/bin:$PATH:$HOME/bin
 
 ### 2.git克隆代码
 
-``` javascript
+``` bash
 git clone
 ```
 
 
 将代码打成jar包
 
-``` javascript
+``` bash
 mvn clean package -Dmaven.test.skip=true
 ```
 
@@ -40,7 +45,7 @@ mvn clean package -Dmaven.test.skip=true
 
 创建一个image文件夹，创建Dockerfile文件：
 
-``` javascript
+``` bash
 FROM openjdk:8-jre
 MAINTAINER dz-forever <1871301001@qq.com>
 
@@ -55,7 +60,7 @@ EXPOSE 6002
 
 将target下生成的jar包复制到image文件夹下，然后执行：
 
-``` javascript
+``` bash
 docker build -t baiduimage .     
 注意最后有一个点
 ```
@@ -64,7 +69,7 @@ docker build -t baiduimage .
 
 在image文件夹下创建docker-compose.yml文件：
 
-``` javascript
+``` bash
 version: '3.1'
 services:
   baidu-image:
@@ -76,7 +81,7 @@ services:
 
 运行docker-compose.yml文件：
 
-``` javascript
+``` bash
 docker-compose up -d 后台运行
 
 
