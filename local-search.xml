@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>AI绘画安装和使用</title>
+    <link href="/2023/01/22/AI%E7%BB%98%E7%94%BB%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
+    <url>/2023/01/22/AI%E7%BB%98%E7%94%BB%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/</url>
+    
+    <content type="html"><![CDATA[<h1 id="AI绘画"><a href="#AI绘画" class="headerlink" title="AI绘画"></a>AI绘画</h1><h2 id="AI绘画安装"><a href="#AI绘画安装" class="headerlink" title="AI绘画安装"></a>AI绘画安装</h2><h3 id="安装软件"><a href="#安装软件" class="headerlink" title="安装软件"></a>安装软件</h3><ul><li>novelai-webui-aki-v2.zip</li><li>启动器运行依赖-dotnet-6.0.11.exe</li><li>webui启动器.zip</li></ul><h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><ol><li>解压<code>novelai-webui-aki-v2.zip</code>到安装目录</li><li>运行<code>启动器运行依赖-dotnet-6.0.11.exe</code></li><li>解压<code>webui启动器.zip</code>,将里面的内容复制<code>novelai-webui-aki-v2.zip</code>的解压目录中</li></ol><h2 id="AI绘画使用"><a href="#AI绘画使用" class="headerlink" title="AI绘画使用"></a>AI绘画使用</h2><ol><li>运行<code>A启动器.exe</code>，出现SD-WebUI启动器窗口</li></ol><p><img src="/../img/post/AI%E7%BB%98%E7%94%BB%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/%E8%BF%90%E8%A1%8C.png" alt="运行"></p><ol start="2"><li>点击一键启动</li><li>访问<code>http://127.0.0.1:7860</code> ，<a href="http://127.0.0.1:7860/">链接</a></li><li>输入提示词，点击生成按钮</li></ol><p><img src="/../img/post/AI%E7%BB%98%E7%94%BB%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/%E7%94%9F%E6%88%90.png" alt="生成"></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>ai绘画</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>ai绘画</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>cgroup的使用</title>
     <link href="/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     <url>/2022/12/29/2022-12-29-cgroup%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
